@@ -9,16 +9,16 @@ public class Role extends BaseEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private RoleName name;
+    private RoleName role;
 
     public Role() {
     }
 
-    public RoleName getName() {
-        return name;
+    public RoleName getRole() {
+        return role;
     }
 
-    public void setName(RoleName name) {
-        this.name = name;
+    public void setRole(RoleName role) {
+        this.role = role;
     }
 }

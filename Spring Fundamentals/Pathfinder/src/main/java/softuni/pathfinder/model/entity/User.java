@@ -33,6 +33,9 @@ public class User extends BaseEntity {
 
     //o	Each registered user should have a "User" role
     @ManyToMany
+//    @JoinTable(name = "roles",
+//            joinColumns = @JoinColumn(name = "user_entity_id"),
+//            inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
 
     @Enumerated(EnumType.STRING)
