@@ -14,14 +14,14 @@ public class Model extends BaseEntity {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private Category category;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url")
     @Size(min = 8, max = 512)
     private String imageUrl;
 
-    @Column(name = "start_year", nullable = false)
+    @Column(name = "start_year")
     private int startYear;
 
     @Column(name = "end_year")

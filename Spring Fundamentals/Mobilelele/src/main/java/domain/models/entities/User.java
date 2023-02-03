@@ -1,9 +1,6 @@
 package domain.models.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +9,11 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @Column(nullable = false)
+//    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column
+    private String email;
 
     @Column
     private String password;
@@ -28,13 +28,13 @@ public class User extends BaseEntity {
     private boolean isActive;
 
     @Column(nullable = false)
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRole> role;
 
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime created;
 
     @Column
@@ -114,6 +114,14 @@ public class User extends BaseEntity {
 
     public void setModified(LocalDateTime modified) {
         this.modified = modified;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public User addRole(UserRole userRole) {

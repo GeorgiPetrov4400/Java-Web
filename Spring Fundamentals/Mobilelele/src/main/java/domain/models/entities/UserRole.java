@@ -5,7 +5,7 @@ import domain.models.enums.Role;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_roles")
+@Table(name = "roles")
 public class UserRole {
 
     @Id
@@ -13,7 +13,7 @@ public class UserRole {
     private Long id;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Role role;
 
     public UserRole() {
