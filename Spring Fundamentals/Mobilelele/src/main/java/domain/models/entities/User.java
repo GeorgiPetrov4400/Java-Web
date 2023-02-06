@@ -9,10 +9,10 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity {
 
-//    @Column(nullable = false, unique = true)
+    @Column
     private String username;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column
