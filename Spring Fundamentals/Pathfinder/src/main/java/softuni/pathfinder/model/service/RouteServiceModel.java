@@ -1,38 +1,42 @@
-package softuni.pathfinder.model.entity;
+package softuni.pathfinder.model.service;
 
 import jakarta.persistence.*;
+import softuni.pathfinder.model.entity.Category;
+import softuni.pathfinder.model.entity.Picture;
+import softuni.pathfinder.model.entity.User;
 import softuni.pathfinder.model.enums.Level;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "routes")
-public class Route extends BaseEntity {
+public class RouteServiceModel {
 
-    @Column(columnDefinition = "TEXT")
+    private Long id;
+
     private String description;
-    @Column(name = "gpx_coordinates", columnDefinition = "LONGTEXT")
+
     private String gpxCoordinates;
 
-    @Enumerated(EnumType.STRING)
     private Level level;
 
-    @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToOne
     private User author;
 
-    @Column(name = "video_url")
     private String videoUrl;
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
     private Set<Picture> pictures;
 
-    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> categories;
 
-    public Route() {
+    public RouteServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -81,6 +85,14 @@ public class Route extends BaseEntity {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public Set<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(Set<Picture> pictures) {
+        this.pictures = pictures;
     }
 
     public Set<Category> getCategories() {
