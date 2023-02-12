@@ -1,15 +1,20 @@
 package domain.models.dtos;
 
+import domain.models.validation.FieldMatch;
 import domain.models.validation.UniqueUserName;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@FieldMatch(
+        first = "password",
+        second = "confirmPassword",
+        message = "Password do not match."
+)
 public class UserRegisterDTO {
 
     @NotEmpty(message = "Username should be valid.")
-    @Size(min = 2, max = 20)
+    @Size(min = 2, max = 20, message = "Size must be between 2 and 20 symbols.")
     @UniqueUserName(message = "Username should be unique.")
     private String username;
 

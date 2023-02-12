@@ -68,18 +68,6 @@ public class UserServiceImpl implements UserService {
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
 
 //        User newUser = new User();
-//        newUser.setLastName(userRegisterDTO.getLastName());
-//        newUser.setPassword(userRegisterDTO.getPassword());
-//
-//        try {
-//            this.userRepository.save(newUser);
-//            login(newUser);
-////            return true;
-//        } catch (DataIntegrityViolationException e) {
-////            return false;
-//        }
-
-//        User newUser = new User();
 //        newUser.setActive(true);
 //        newUser.setFirstName(userRegisterDTO.getFirstName());
 //        newUser.setLastName(userRegisterDTO.getLastName());

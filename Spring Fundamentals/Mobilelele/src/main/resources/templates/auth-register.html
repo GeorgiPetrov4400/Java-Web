@@ -108,9 +108,12 @@
                        type="text" min="2" max="20"
                        class="form-control"
                        placeholder="Username"/>
-                <p class="invalid-feedback errors alert alert-danger">
-                    Username is required.
-                </p>
+                <div class="invalid-feedback errors alert alert-danger">
+                    <div
+                            th:each="err : ${#fields.errors('username')}"
+                            th:text="${err}"
+                    />
+                </div>
             </div>
             <!--            <div class="form-group col-md-6 mb-3">-->
             <!--                <label for="email" class="text-white font-weight-bold">Email</label>-->
@@ -140,12 +143,13 @@
         <div class="form-group">
             <label for="confirmPassword" class="text-white font-weight-bold">Confirm Password</label>
             <input id="confirmPassword"
-                   name="confirmPassword"
-                   type="password" min="2" max="20"
+                   th:field="*{confirmPassword}"
+                   th:errorclass="is-invalid"
+                   type="password"
                    class="form-control"
                    placeholder="Confirm Password"/>
             <p class="errors alert alert-danger">
-                Password and confirm password should match.
+                Passwords should match.
             </p>
             <!--            <label class="text-center text-white font-weight-bold" for="roles">Roles</label>-->
             <!--            <select  id="roles" class="form-control" multiple>-->
