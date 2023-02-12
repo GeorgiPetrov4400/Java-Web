@@ -1,14 +1,21 @@
 package domain.models.dtos;
 
+import domain.models.validation.UniqueUserName;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class UserRegisterDTO {
 
-    @NotEmpty
-    @Email
-    private String email;
+    @NotEmpty(message = "Username should be valid.")
+    @Size(min = 2, max = 20)
+    @UniqueUserName(message = "Username should be unique.")
+    private String username;
+
+//    @NotEmpty
+//    @Email
+//    private String email;
 
     @NotEmpty
     @Size(min = 2, max = 20)
@@ -24,13 +31,24 @@ public class UserRegisterDTO {
 
     private String confirmPassword;
 
-    public String getEmail() {
-        return email;
+    public UserRegisterDTO() {
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getUsername() {
+        return username;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getFirstName() {
         return firstName;

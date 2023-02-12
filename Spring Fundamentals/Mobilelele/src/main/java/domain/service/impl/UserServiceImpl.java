@@ -3,6 +3,7 @@ package domain.service.impl;
 import domain.models.dtos.UserLoginDTO;
 import domain.models.dtos.UserRegisterDTO;
 import domain.models.entities.User;
+import domain.models.mapper.UserMapper;
 import domain.repository.UserRepository;
 import domain.service.UserService;
 import domain.user.CurrentUser;
@@ -17,29 +18,31 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
-    private CurrentUser currentUser;
-    private PasswordEncoder passwordEncoder;
+    private final CurrentUser currentUser;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @Override
     public boolean login(UserLoginDTO userLoginDTO) {
         Optional<User> optionalUser = userRepository.findByUsername(userLoginDTO.getUsername());
 
-        if (optionalUser.isEmpty()) {
+        if (!optionalUser.isPresent()) {
             LOGGER.info("User with name [{}] not found", userLoginDTO.getUsername());
             return false;
         }
 
-        var rawPassword = userLoginDTO.getPassword();
-        var encodedPassword = optionalUser.get().getPassword();
+        String rawPassword = userLoginDTO.getPassword();
+        String encodedPassword = optionalUser.get().getPassword();
 
         boolean success = passwordEncoder.matches(rawPassword, encodedPassword);
 
@@ -63,14 +66,34 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
-        User newUser = new User();
-        newUser.setActive(true);
-        newUser.setEmail(userRegisterDTO.getEmail());
-        newUser.setFirstName(userRegisterDTO.getFirstName());
-        newUser.setLastName(userRegisterDTO.getLastName());
+
+//        User newUser = new User();
+//        newUser.setLastName(userRegisterDTO.getLastName());
+//        newUser.setPassword(userRegisterDTO.getPassword());
+//
+//        try {
+//            this.userRepository.save(newUser);
+//            login(newUser);
+////            return true;
+//        } catch (DataIntegrityViolationException e) {
+////            return false;
+//        }
+
+//        User newUser = new User();
+//        newUser.setActive(true);
+//        newUser.setFirstName(userRegisterDTO.getFirstName());
+//        newUser.setLastName(userRegisterDTO.getLastName());
+//        newUser.setUsername(userRegisterDTO.getUsername());
+//        newUser.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+//
+//        newUser = userRepository.save(newUser);
+//
+//        login(newUser);
+
+        User newUser = userMapper.userDtoToUser(userRegisterDTO);
         newUser.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
-        newUser = userRepository.save(newUser);
+        this.userRepository.save(newUser);
 
         login(newUser);
     }

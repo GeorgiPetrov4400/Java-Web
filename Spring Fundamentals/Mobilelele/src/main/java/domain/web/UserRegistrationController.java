@@ -36,19 +36,21 @@ public class UserRegistrationController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid UserRegisterDTO userRegisterDTO,
+    public String register(@Valid UserRegisterDTO userModel,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userModel", userRegisterDTO);
+            redirectAttributes.addFlashAttribute("userModel", userModel);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.userModel", bindingResult);
+
+//            bindingResult.rejectValue("email", "UsernameTakenError", "This username is already taken");
 
             return "redirect:/users/register";
         }
 
-        userService.registerAndLogin(userRegisterDTO);
+        userService.registerAndLogin(userModel);
 
         return "redirect:/";
     }
