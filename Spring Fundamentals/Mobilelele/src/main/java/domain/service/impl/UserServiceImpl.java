@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public boolean login(UserLoginDTO userLoginDTO) {
         Optional<User> optionalUser = userRepository.findByUsername(userLoginDTO.getUsername());
 
-        if (!optionalUser.isPresent()) {
+        if (optionalUser.isEmpty()) {
             LOGGER.info("User with name [{}] not found", userLoginDTO.getUsername());
             return false;
         }
