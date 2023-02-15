@@ -4,10 +4,10 @@ import jakarta.validation.constraints.Size;
 
 public class UserLoginBindingModel {
 
-    @Size(min = 5, max = 20)
+    @Size(min = 5, max = 20, message = "My username error message")
     private String username;
 
-    @Size(min = 3)
+    @Size(min = 3, message = "My password error message")
     private String password;
 
     public UserLoginBindingModel() {

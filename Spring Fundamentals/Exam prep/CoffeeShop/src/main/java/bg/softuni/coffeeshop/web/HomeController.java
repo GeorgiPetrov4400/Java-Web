@@ -23,7 +23,7 @@ public class HomeController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public String index(Model model) {
 
         if (currentUser.getId() == null) {
