@@ -90,4 +90,12 @@ public class Route extends BaseEntity {
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
+
+    public Set<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(Set<Picture> pictures) {
+        this.pictures = pictures;
+    }
 }
