@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.pathfinder.model.entity.Route;
 import softuni.pathfinder.model.service.RouteServiceModel;
+import softuni.pathfinder.model.view.RouteDetailsViewModel;
 import softuni.pathfinder.model.view.RouteViewModel;
 import softuni.pathfinder.repository.RouteRepository;
 import softuni.pathfinder.service.CategoryService;
@@ -54,5 +55,11 @@ public class RouteServiceImpl implements RouteService {
                 .collect(Collectors.toSet()));
 
         routeRepository.save(route);
+    }
+
+    @Override
+    public RouteDetailsViewModel findRouteById(Long id) {
+        return routeRepository.findById(id)
+                .map(route -> modelMapper.map(route, RouteDetailsViewModel.class)).orElse(null);
     }
 }
