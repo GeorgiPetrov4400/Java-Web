@@ -63,6 +63,7 @@ public class BookService {
     }
 
     public void deleteById(Long bookId) {
-        bookRepository.deleteById(bookId);
+        var bookOptional = bookRepository.findById(bookId);
+        bookOptional.ifPresent(bookRepository::delete);
     }
 }
